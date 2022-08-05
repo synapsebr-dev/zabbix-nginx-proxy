@@ -21,7 +21,7 @@ function log(){
 }
 
 function cert_renew(){
-  docker compose run --rm certbot ash -c "certbot renew" && $0 test && $0 reload
+  docker compose run --rm certbot ash -c "certbot renew" && bash $0 test && bash $0 reload
 }
 
 $1
