@@ -1,0 +1,8 @@
+conf/letsencrypt/*
+!conf/letsencrypt/.gitkeep
+
+volumes/*
+!volumes/.gitkeep
+
+conf/nginx/html/.well-known/acme-challenge/*
+!conf/nginx/html/.well-known/acme-challenge/.gitkeep

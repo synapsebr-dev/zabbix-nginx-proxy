@@ -1,0 +1,58 @@
+version: '3.8'
+
+networks:
+  nginx:
+  zabbix:
+    external: true
+  grafana:
+    external: true
+
+services:
+  #########################################################
+  # PROXY REVERSE
+  #########################################################
+  proxy:
+    image: nginx:stable-alpine
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://localhost:443/", "--insecure"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    volumes:
+      - ./conf/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./conf/ssl:/etc/nginx/ssl:ro
+      - ./conf/nginx/html:/etc/nginx/html:ro
+      - ./volumes/letsencrypt/etc:/etc/letsencrypt:ro
+    networks:
+      - nginx
+      - zabbix
+      - grafana
+    ports:
+      - "80:80"
+      - "443:443"
+
+  #########################################################
+  # LETS ENCRYPT
+  #########################################################
+  certbot:
+    build:
+      context: ./Dockerfile
+      dockerfile: letsencrypt
+    image: local/certbot:cloudflare
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+    volumes:
+      - ./conf/proxy/html:/etc/nginx/html:rw
+      - ./conf/letsencrypt:/opt/letsencrypt:ro
+      - ./volumes/letsencrypt/etc:/etc/letsencrypt:rw
+    command: ash -c "certbot --version; exit 0"

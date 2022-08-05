@@ -1,0 +1,8 @@
+FROM alpine:latest
+LABEL maintainer="Joao Arquimedes. Synapse Brasil"
+
+RUN apk update
+RUN apk upgrade
+
+RUN apk add certbot py3-pip
+RUN pip3 install certbot-dns-cloudflare
