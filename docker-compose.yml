@@ -31,9 +31,11 @@ services:
       - ./conf/nginx/html:/etc/nginx/html:ro
       - ./volumes/letsencrypt/etc:/etc/letsencrypt:ro
     networks:
-      - nginx
-      - zabbix
-      - grafana
+      nginx:
+      zabbix:
+      grafana:
+        aliases:
+          - zabbix-server.digitcloud.com.br
     ports:
       - "80:80"
       - "443:443"
