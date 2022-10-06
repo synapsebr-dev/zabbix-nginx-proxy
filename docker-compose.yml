@@ -36,6 +36,7 @@ services:
       grafana:
         aliases:
           - zabbix-server.digitcloud.com.br
+          - zabbix-server.vanelos.com.br
     ports:
       - "80:80"
       - "443:443"
@@ -54,7 +55,7 @@ services:
           cpus: '0.50'
           memory: 256M
     volumes:
-      - ./conf/proxy/html:/etc/nginx/html:rw
+      - ./conf/nginx/html:/etc/nginx/html:rw
       - ./conf/letsencrypt:/opt/letsencrypt:ro
       - ./volumes/letsencrypt/etc:/etc/letsencrypt:rw
     command: ash -c "certbot --version; exit 0"

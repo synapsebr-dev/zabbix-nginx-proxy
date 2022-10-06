@@ -21,12 +21,12 @@ git clone git@github.com:synapsebr-dev/zabbix-nginx-proxy.git
 
 Criando certificado via webroot, exemplo:
 ```
-docker compose run --rm -it certbot ash -c "certbot certonly --webroot -w /etc/nginx/html --email suporte@synapsebrasil.com.br -d dominio"
+docker compose run --rm -it certbot ash -c "certbot certonly --webroot -w /etc/nginx/html --email infraestrutura@vanelos.com.br -d dominio"
 ```
 
 Criando certificado via DNS API no Cloudflare
 ```
-docker compose run --rm -it certbot ash -c "certbot certonly --dns-cloudflare --dns-cloudflare-credentials /opt/letsencrypt/cloudflare.token --email suporte@synapsebrasil.com.br -d dominio"
+docker compose run --rm -it certbot ash -c "certbot certonly --dns-cloudflare --dns-cloudflare-credentials /opt/letsencrypt/cloudflare.token --email infraestrutura@vanelos.com.br -d dominio"
 ```
 
 Renovar certificado
