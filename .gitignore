@@ -1,6 +1,12 @@
 conf/letsencrypt/*
 !conf/letsencrypt/.gitkeep
 
+conf/nginx/conf.d/*
+!conf/nginx/conf.d/.gitkeep
+!conf/nginx/conf.d/000_default.conf
+!conf/nginx/conf.d/allow-*
+!conf/nginx/conf.d/_model*
+
 volumes/*
 !volumes/.gitkeep
 

@@ -1,4 +1,5 @@
 version: '3.8'
+name: "${COMPOSE_PROJECT_NAME}"
 
 networks:
   nginx:
@@ -13,17 +14,27 @@ services:
   #########################################################
   proxy:
     image: nginx:stable-alpine
+    platform: ${ARCH}
     restart: always
     deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        delay: 20s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
       resources:
         limits:
           cpus: '0.5'
           memory: 512M
     healthcheck:
       test: ["CMD", "curl", "-f", "https://localhost:443/", "--insecure"]
-      interval: 30s
+      interval: 1m
       timeout: 10s
-      retries: 3
+      retries: 5
       start_period: 30s
     volumes:
       - ./conf/nginx/conf.d:/etc/nginx/conf.d:ro

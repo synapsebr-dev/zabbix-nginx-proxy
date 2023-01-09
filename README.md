@@ -2,10 +2,10 @@
 
 # Dependência
 
-Este proxy depende dos serviços Zabbix e Grafana rodando
+Este proxy depende dos serviços Zabbix Server e Grafana
 
-- https://github.com/synapsebr-dev/zabbix
-- https://github.com/synapsebr-dev/zabbix-grafana
+- https://github.com/vanelos/zabbix-server
+- https://github.com/vanelos/zabbix-grafana
 
 <br>
 
@@ -17,11 +17,19 @@ git clone git@github.com:synapsebr-dev/zabbix-nginx-proxy.git
 ```
 <br>
 
+# Configuração
+
+Baseado nos arquivos "modelos", realizar as configurações:
+- docker-compose.yml
+- conf/nginx/conf.d/<domínio>.conf
+
+<br>
+
 # Certificado Digital
 
 Criando certificado via webroot, exemplo:
 ```
-docker compose run --rm -it certbot ash -c "certbot certonly --webroot -w /etc/nginx/html --email infraestrutura@vanelos.com.br -d dominio"
+docker compose run --rm certbot ash -c "certbot certonly --webroot -w /etc/nginx/html --email infraestrutura@vanelos.com.br -d dominio"
 ```
 
 Criando certificado via DNS API no Cloudflare
