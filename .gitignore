@@ -1,3 +1,5 @@
+docker-compose.yml
+
 conf/letsencrypt/*
 !conf/letsencrypt/.gitkeep
 
